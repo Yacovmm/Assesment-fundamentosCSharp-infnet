@@ -34,5 +34,36 @@ namespace AssessmentFundamentoCSharp_YacovRosenberg
 
             sw.Close();
         }
+
+        public static void ListFile()
+        {
+            
+            string[] arquivos = Directory.GetFiles(diretorio);
+
+            Console.WriteLine("Arquivos:");
+            foreach (string arq in arquivos)
+            {
+                Console.WriteLine(arq);
+            }
+        }
+
+        public static void ReadFile(string name)
+        {
+
+            string text = ""; 
+
+            VerifyFile(name); 
+
+            StreamReader sr = new StreamReader(diretorio + name + ".txt"); 
+
+             
+                while(sr.EndOfStream == false){
+                 text += sr.ReadLine();
+                }
+
+            sr.Close(); 
+
+            Console.WriteLine(text); 
+        }
     }
 }

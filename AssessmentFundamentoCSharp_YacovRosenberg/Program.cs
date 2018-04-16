@@ -21,8 +21,9 @@ namespace AssessmentFundamentoCSharp_YacovRosenberg
             {
                 Console.WriteLine("--- Gerenciador de Aniversários ---");
                 Console.WriteLine("[ 1 ] Adicionar pessoas");
-                Console.WriteLine("[ 2 ] Pesquisar pessoas");
-                Console.WriteLine("[ 3 ] Sair");
+                Console.WriteLine("[ 2 ] Pesquisar arquivos");
+                Console.WriteLine("[ 3 ] Pesquisar pessoas");
+                Console.WriteLine("[ 0 ] Sair");
                 Console.WriteLine("-------------------------------------");
                 Console.Write("Selecione uma opção digitando o número correspondente: ");
 
@@ -34,9 +35,12 @@ namespace AssessmentFundamentoCSharp_YacovRosenberg
                         AddPerson();
                         break;
                     case 2:
-                        SearchPerson();
+                        ListFiles();
                         break;
                     case 3:
+                        SearchPerson();
+                        break;
+                    case 4:
                         Environment.Exit(0);
                         break;
                     default:
@@ -50,12 +54,16 @@ namespace AssessmentFundamentoCSharp_YacovRosenberg
             while (opt != 0);
         }
 
+        private static void ListFiles()
+        {
+            TxtFile.ListFile();
+            
+        }
+
         private static void SearchPerson()
         {
-            Console.WriteLine("Escreva o nome que deseja procurar: ");
-            string name = Console.ReadLine();
-
-            //r.Search(name);
+            Console.WriteLine("Entre com o nome que deseja procurar: ");
+            TxtFile.ReadFile(Console.ReadLine());
         }
 
         private static void AddPerson()
