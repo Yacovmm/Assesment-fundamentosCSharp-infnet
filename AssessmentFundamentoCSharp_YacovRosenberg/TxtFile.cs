@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,8 @@ namespace AssessmentFundamentoCSharp_YacovRosenberg
                 File.Create(caminhoArquivo);
             }
         }
+
+
         public static void WriteData(Person person)
         {
             VerifyFile(person.Name); 
@@ -35,6 +38,7 @@ namespace AssessmentFundamentoCSharp_YacovRosenberg
             sw.Close();
         }
 
+
         public static void ListFile()
         {
             
@@ -46,6 +50,7 @@ namespace AssessmentFundamentoCSharp_YacovRosenberg
                 Console.WriteLine(arq);
             }
         }
+
 
         public static void ReadFile(string name)
         {
@@ -64,6 +69,47 @@ namespace AssessmentFundamentoCSharp_YacovRosenberg
             sr.Close(); 
 
             Console.WriteLine(text); 
+
+            Console.WriteLine("1- Edit");
+            Console.WriteLine("0 - Exit");
+
+            int opt = Convert.ToChar(Console.ReadLine());
+
+            switch (opt) 
+            {
+                case '1':
+                    Edit(name);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private static void Edit(string nome)
+        {
+            var p = new Person();
+
+            Console.WriteLine("Escreva seu nome: ");
+            p.Name = Console.ReadLine();
+
+            Console.WriteLine("Escreva seu Sobrenome: ");
+            p.LastName = Console.ReadLine();
+
+            Console.WriteLine("Escreva seu aniversário no formato Dia/Mês/Ano: ");
+            string inputDate = Console.ReadLine();
+            DateTime birthDate;
+            DateTime.TryParseExact(inputDate, "dd/MM/yyyy", null, DateTimeStyles.None, out birthDate);
+            p.Birthday = birthDate;
+
+
+            StreamWriter sw = new StreamWriter(diretorio + nome + ".txt");
+
+
+            sw.WriteLine("Nome: " + p.Name + "| Sobrenome: " + p.LastName + "| Data: " + p.Birthday);
+
+            Console.WriteLine("Dados atualizados com sucesso!");
+
+            sw.Close();
         }
     }
 }
